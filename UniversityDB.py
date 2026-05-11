@@ -1,6 +1,7 @@
 import mysql.connector
 import pandas as pd
 
+
 #creating the connection
 db = mysql.connector.connect(
     host = "localhost",
@@ -677,7 +678,7 @@ else:
               "Law and Management Studies",
               "Commerce",
               "Bcom General in Information Systems and Technology",
-              "Information Systems and Technology",
+              "Information Systems and Technology",+
               "Information Systems in Computing",
               4
 
@@ -693,4 +694,467 @@ tabulate = pd.DataFrame(cursor)
 print()
 print(tabulate)
 
+check = "SELECT * FROM qualification WHERE degreeID = 225052822"
+cursor = db.cursor()
+cursor.execute(check)
+result = cursor.fetchone()
 
+if result:
+    print("data is already inserted")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225052822,
+               "Health Science",
+               "Clinical Anatomy",
+               "Bmed Anatomy",
+               "Anatomy",
+               "none",
+               3)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+    print("data inserted successfully")
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification")
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (226073868,
+           "Lethokuhle",
+           "Mnguni")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM student")
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+check = "SELECT * FROM qualification WHERE degreeID = 226073868"
+cursor = db.cursor()
+cursor.execute(check)
+result = cursor.fetchone()
+if result :
+    print("duplicate data")
+
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+
+    sqlData = (226073868,
+           "Agriculture,Engineering and Science",
+           "idk",
+           "Bsc Augmented science",
+           "none",
+           "none",
+           4)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (225043219,
+           "Nosipho",
+           "Mhlongo")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+check = "SELECT * FROM qualification WHERE degreeID = 225043219"
+cursor = db.cursor()
+cursor.execute(check)
+result = cursor.fetchone()
+if result:
+    print("data already exists")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUE (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225043219,
+           "Agriculture,Engineering and Science",
+           "Comp,Maths and Stats",
+           "Bsc Stream M",
+           "Computer Science",
+           "Statistics",
+           3
+           )
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (225061778,
+           "Banele",
+           "Hlengwa")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+check = "SELECT * FROM qualification WHERE degreeID = 225061778"
+cursor = db.cursor()
+cursor.execute(check)
+
+result = cursor.fetchone()
+
+if result:
+    print("data already exists")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225061778,
+               "Agriculture,Engineering and Science",
+               "Life Sciences",
+               "Bsc Stream LES",
+               "Microbiology",
+               "Biochemistry",
+               3
+               )
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+    print("data inserted successfully")
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification")
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+cursor = db.cursor()
+cursor.execute("""SELECT student.name AS name,
+                qualification.degree AS degree,
+               qualification.major1 AS major,
+               qualification.major2 AS minor
+               FROM
+               student INNER JOIN qualification
+               ON student.studentnumber= qualification.degreeID
+               """)
+
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (225030881,
+           "Nonhlanhla ",
+           "Mabasa")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+
+check = "SELECT * FROM qualification WHERE degreeID = 225030881 "
+cursor = db.cursor()
+cursor.execute(check)
+result = cursor.fetchone()
+
+if result:
+    print("data already exists")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225030881,
+               "Agriculture,Engineering and Science",
+               "Math,Stats and Comp",
+               "Bsc Stream M",
+               "Computer Science",
+               "Maths",
+               3
+               )
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification")
+
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM courseInfo")
+
+#outputing data using pandas series
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+
+
+#inserting data into our second table
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (225035904,
+           "Nikhiel",
+           "Naicker")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (224132969,
+           "Lifalethu",
+           "Mbambo")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+check = "SELECT * FROM qualification WHERE  degreeID = 224132969"
+cursor = db.cursor()
+cursor.execute(check)
+
+result = cursor.fetchone()
+
+if result:
+    print("data inserted")
+
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (224132969,
+               "Law and Management Studies",
+               "Commerce",
+               "Bcom general",
+               "Acoounting",
+               "Economics",
+               4
+               )
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+    
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification")
+
+print()
+tabulate = pd.DataFrame(cursor)
+
+print(tabulate)
+
+"""check = "SELECT * FROM courseInfo WHERE courseID = 225052822"
+
+cursor = db.cursor()
+cursor.execute(check)
+
+result = cursor.fetchone()
+if result:
+    print("data already in here")
+
+else:
+    sqlInsert = "INSERT INTO courseInfo(courseID,coreModule1,corModule2,electiveModule1,electiveModule2,electiveModule3,electiveModule4,Year) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225052822,
+               "Anatomy201",
+               "none",
+               "Mico",
+               "")"""
+
+cursor = db.cursor()
+cursor.execute(""" SELECT student.name,
+                courseInfo.coreModule1,courseInfo.corModule2,
+               courseInfo.electiveModule1,courseInfo.electiveModule2,
+               courseInfo.electiveModule3,courseInfo.electiveModule4
+               FROM
+               student INNER JOIN courseInfo ON student.studentnumber = courseInfo.courseID
+               """)
+
+tabulate = pd.DataFrame(cursor)
+print()
+print("the table is here")
+print(tabulate)
+
+sqlInsert = "INSERT INTO student(studentnumber, name, surname) VALUES (%s,%s,%s)"
+sqlData = (225042404,
+           "Sazi",
+           "Shongwe")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification  WHERE degreeID = 225042404")
+
+result = cursor.fetchall()
+
+if result :
+    print("data already exists")
+else:
+    #inserting data to our third table
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225042404,
+               "Health Sscience",
+               "Medicine and what",
+               "Bmedsci Physiology",
+               "Physiology",
+               "none",
+               3
+               )
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+#method to prevent an error
+check = "SELECT * FROM courseinfo WHERE courseID = 225042404"
+cursor = db.cursor()
+cursor.execute(check)
+
+result = cursor.fetchall()
+
+if result:
+    print("data already exists")
+else:
+
+    sqlInsert = "INSERT INTO courseinfo(courseID,coreModule1,corModule2,electiveModule1,electiveModule2,electiveModule3,electiveModule4,Year) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225042404,
+           "HPHS231",
+           "none",
+           "Anat201",
+           "Bioc201",
+           "none",
+           "none",
+           2)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+#displaying our current data in student table
+cursor = db.cursor()
+cursor.execute("SELECT * FROM student")
+result = cursor.fetchall()
+
+tabulate = pd.DataFrame(result)
+print()
+print("table showing students in our table")
+print(tabulate)
+
+#printing our data in course table
+cursor = db.cursor()
+cursor.execute("SELECT * FROM courseinfo")
+result = cursor.fetchall()
+
+tabulate = pd.DataFrame(result)
+print()
+print("data in the courseinfo")
+print(tabulate)
+
+check = "SELECT * FROM qualification WHERE degreeID = 223015212"
+cursor = db.cursor()
+cursor.execute(check)
+result = cursor.fetchall()
+
+if result:
+    print("data already exists")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,major1,major2,year) VALUES(%s,%s,%s,%s,%s,%s)"
+    sqlData = (223015212,
+               "Agriculture,Engineering and Science",
+               "Agriculture",
+               "Geological Sciences",
+               "none",
+               3)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES (%s,%s,%s)"
+sqlData = (225002443,
+           "Phiwokuhle",
+           "Dlamini")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification WHERE degreeID = 225002443")
+result = cursor.fetchall()
+
+if result:
+    print("data already exists")
+else:
+    sqlInsert="INSERT INTO qualification(degreeID,college,school,degree,major1,major2,Year) VALUES(%s,%s,%s,%s,%s,%s,%s)"
+    sqlData = (225002443,
+               "Law and Management Studies",
+               "Commerce",
+               "BAdmin",
+               "Public administration",
+               "Supply Chain",
+               3)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+
+
+
+#showing student numbers,name and id
+sql = """SELECT student.studentnumber,student.name, qualification.degree
+        FROM student INNER JOIN 
+        qualification ON student.studentnumber = qualification.degreeID"""
+
+cursor = db.cursor()
+cursor.execute(sql)
+
+tabulate = pd.DataFrame(cursor)
+print()
+print("data in the manipulated table")
+print(tabulate)
+
+#printing in ascending order
+cursor  = db.cursor()
+cursor.execute("SELECT * FROM student  ORDER BY studentnumber")
+tabulate = pd.DataFrame(cursor)
+print()
+print(tabulate)
+print()
+
+#showing data with the students major
+print("student number", "\t \t ", "name", "\t \t  ","major"  )
+sql = """SELECT student.studentnumber, student.name, qualification.major1
+        FROM
+        student INNER JOIN qualification ON student.studentnumber = qualification.degreeID
+         """
+cursor = db.cursor()
+cursor.execute(sql)
+
+tabulate = pd.DataFrame(cursor)
+
+print(tabulate)
+
+sqlInsert = "INSERT INTO student (studentnumber, name ,surname) VALUES(%s,%s,%s)"
+sqlData = (225004993,
+           "Lesedi",
+           "Phatedi")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+
+cursor = db.cursor()
+cursor.execute("SELECT * FROM qualification WHERE degree = 225054879")
+result = cursor.fetchall()
+
+if result:
+    print("data already exists")
+else:
+    sqlInsert = "INSERT INTO qualification(degreeID,college,school,degree,major1,major2,year) VALUES(%s,%s,%s,%s,%s,%s,%s)"
+    sqlData =(225054879,
+              "Agriculture,Engineering and Science",
+              "Agriculture",
+              "Bsc-Gs Geological",
+              "Environmental and Engineering Geology",
+              "Geology and Ore Deposits",
+              3)
+    cursor = db.cursor()
+    cursor.execute(sqlInsert,sqlData)
+    db.commit()
+    print("data inserted")
+    print()
+
+sqlInsert = "INSERT INTO student (studentnumber,name,surname) VALUES(%s,%s,%s)"
+sqlData = (225006786,
+           "Lebohang",
+           "Dlamini")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
+
+sqlInsert = "INSERT INTO student(studentnumber,name,surname) VALUES(%s,%s,%s)"
+sqlData = (225009471,
+           "Abahle",
+           "Dladla")
+cursor = db.cursor()
+cursor.execute(sqlInsert,sqlData)
+db.commit()
